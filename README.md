@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column          | Type   | Options                    |
-| --------------- | ------ | -------------------------- |
-| nickname        | string | null: false                |
-| email           | string | null: false , unique: true |
-| password        | string | null: false                |
-| last_name       | string | null: false                |
-| first_name      | string | null: false                |
-| last_name_kana  | string | null: false                |
-| first_name_kana | string | null: false                |
-| birthday        | day    | null: false                |
+| Column             | Type   | Options                    |
+| ------------------ | ------ | -------------------------- |
+| nickname           | string | null: false                |
+| email              | string | null: false , unique: true |
+| encrypted_password | string | null: false                |
+| last_name          | string | null: false                |
+| first_name         | string | null: false                |
+| last_name_kana     | string | null: false                |
+| first_name_kana    | string | null: false                |
+| birthday           | day    | null: false                |
 
 ### Association
 
@@ -20,17 +20,17 @@
 
 ## items テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| user          | references | null: false , foreign_key:true |
-| item_name     | string     | null: false                    |
-| item_content  | text       | null: false                    |
-| category      | integer    | null: false                    |
-| condition     | integer    | null: false                    |
-| cost          | integer    | null: false                    |
-| shipping_area | integer    | null: false                    |
-| shipping_day  | integer    | null: false                    |
-| price         | integer    | null: false                    |
+| Column           | Type       | Options          |
+| ---------------- | ---------- | ---------------- |
+| user             | references | foreign_key:true |
+| name             | string     | null: false      |
+| content          | text       | null: false      |
+| category_id      | integer    | null: false      |
+| condition_id     | integer    | null: false      |
+| cost_id          | integer    | null: false      |
+| shipping_area_id | integer    | null: false      |
+| shipping_day_id  | integer    | null: false      |
+| price            | integer    | null: false      |
 
 ### Association
 
@@ -39,10 +39,10 @@
 
 ## purchases テーブル
 
-| Column | Type       | Options                        |
-| ------ | ---------- | ------------------------------ |
-| user   | references | null: false , foreign_key:true |
-| item   | references | null: false , foreign_key:true |
+| Column | Type       | Options          |
+| ------ | ---------- | ---------------- |
+| user   | references | foreign_key:true |
+| item   | references | foreign_key:true |
 
 ### Association
 
@@ -52,15 +52,15 @@
 
 ## shipping_address テーブル
 
-| Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
-| purchase      | references | null: false , foreign_key:true |
-| postcode      | string     | null: false                    |
-| prefectures   | integer    | null: false                    |
-| city          | string     | null: false                    |
-| address       | string     | null: false                    |
-| building_name | string     |                                |
-| phone_number  | string     | null: false                    |
+| Column         | Type       | Options          |
+| -------------- | ---------- | ---------------- |
+| purchase       | references | foreign_key:true |
+| postcode       | string     | null: false      |
+| prefectures_id | integer    | null: false      |
+| city           | string     | null: false      |
+| address        | string     | null: false      |
+| building_name  | string     |                  |
+| phone_number   | string     | null: false      |
 
 ### Association
 
