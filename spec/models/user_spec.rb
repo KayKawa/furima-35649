@@ -87,6 +87,11 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is invalid')
       end
+      it 'password:全角のみでは登録できない' do
+        @user.password = '１２３４５６'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
       it 'passwordとpassword_confirmationが一致しないと登録できない' do
         @user.password = '123456'
         @user.password_confirmation = 'abcdef'
@@ -129,6 +134,16 @@ RSpec.describe User, type: :model do
         @user.first_name_kana = '陸太郎'
         @user.valid?
         expect(@user.errors.full_messages).to include('First name kana is invalid')
+      end
+      it 'last_nameが漢字・平仮名・カタカナ以外では登録できない' do
+        @user.last_name = 'hoge'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Last name is invalid')
+      end
+      it 'first_nameが漢字・平仮名・カタカナ以外では登録できない' do
+        @user.first_name = 'hoge'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First name is invalid')
       end
     end
   end
