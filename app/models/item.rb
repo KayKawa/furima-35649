@@ -7,7 +7,9 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :content
-    validates :price, numericality: { in: 300..9_999_999, message: 'Please specify between 300 and 9,999,999.' }
+    validates :price,
+              numericality: { less_than_or_equal_to: 9_999_999, greater_than_or_equal_to: 300,
+                              message: 'Please specify between 300 and 9,999,999.' }
     validates :image
     # ActiveHashの選択が「--」の時は保存できないようにする
     with_options numericality: { other_than: 1, message: "can't be blank" } do
