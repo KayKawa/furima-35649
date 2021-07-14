@@ -10,12 +10,12 @@ class Item < ApplicationRecord
     validates :price, numericality: { in: 300..9_999_999, message: 'Please specify between 300 and 9,999,999.' }
     validates :image
     # ActiveHashの選択が「--」の時は保存できないようにする
-    with_options numericality: { other_than: 1 } do
-      validates :category_id, { message: "Category can't be blank" }
-      validates :condition_id, { message: "Condition can't be blank" }
-      validates :cost_id, { message: "Cost can't be blank" }
-      validates :prefecture_id, { message: "Predecture can't be blank" }
-      validates :shipping_day_id, { message: "Shipping_day can't be blank" }
+    with_options numericality: { other_than: 1, message: "can't be blank" } do
+      validates :category_id
+      validates :condition_id
+      validates :cost_id
+      validates :prefecture_id
+      validates :shipping_day_id
     end
   end
 end
