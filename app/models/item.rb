@@ -7,8 +7,8 @@ class Item < ApplicationRecord
   # 空の投稿を保存できないようにする
   with_options presence: true do
     validates :image
-    validates :name, length: { maximum: 40 } # 必須40文字まで
-    validates :content, length: { maximum: 1000 } # 必須1000文字まで
+    validates :name
+    validates :content
     # ActiveHashの選択が「--」の時は保存できないようにする
     with_options numericality: { other_than: 1, message: "can't be blank" } do
       validates :category_id
