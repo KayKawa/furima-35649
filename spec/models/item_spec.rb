@@ -75,6 +75,41 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price before type cast input half-width characters.')
       end
+      it 'category_idが"--"選択では登録できない' do
+        @item.category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+      it 'condition_idが"--"選択では登録できない' do
+        @item.condition_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+      it 'cost_idが"--"選択では登録できない' do
+        @item.cost_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Cost can't be blank")
+      end
+      it 'prefecture_idが"--"選択では登録できない' do
+        @item.prefecture_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+      end
+      it 'shipping_day_idが"--"選択では登録できない' do
+        @item.shipping_day_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping day can't be blank")
+      end
+      it 'priceが299円以下では登録できない' do
+        @item.price = rand(1..299)
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price please specify between 300 and 9,999,999.')
+      end
+      it 'priceが10,000,000以上では登録できない' do
+        @item.price = '100000000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price please specify between 300 and 9,999,999.')
+      end
     end
   end
 end
