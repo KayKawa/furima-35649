@@ -45,8 +45,8 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
-      it 'shipping_day_idが空では登録できない' do
-        @item.shipping_day_id = ''
+      it 'schedule_idが空では登録できない' do
+        @item.schedule_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping day can't be blank")
       end
@@ -95,8 +95,8 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
-      it 'shipping_day_idが"--"選択では登録できない' do
-        @item.shipping_day_id = '1'
+      it 'schedule_idが"--"選択では登録できない' do
+        @item.schedule_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping day can't be blank")
       end
