@@ -48,7 +48,7 @@ RSpec.describe Item, type: :model do
       it 'schedule_idが空では登録できない' do
         @item.schedule_id = ''
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping day can't be blank")
+        expect(@item.errors.full_messages).to include("Schedule can't be blank")
       end
       it 'priceが空では登録できない' do
         @item.price = ''
@@ -98,7 +98,7 @@ RSpec.describe Item, type: :model do
       it 'schedule_idが"--"選択では登録できない' do
         @item.schedule_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping day can't be blank")
+        expect(@item.errors.full_messages).to include("Schedule can't be blank")
       end
       it 'priceが299円以下では登録できない' do
         @item.price = rand(1..299)
