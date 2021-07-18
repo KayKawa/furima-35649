@@ -11,6 +11,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(items_params)
+
     if @item.save
       redirect_to root_path
     else
@@ -26,6 +27,6 @@ class ItemsController < ApplicationController
 
   def items_params
     params.require(:item).permit(:name, :content, :category_id, :condition_id, :cost_id, :prefecture_id, :schedule_id, :price,
-                                 :image).merge(user_id: current_user.id)
+                                 :image).merge(user_id: current_user.id, seller_id: current_user.id) # seller_idに現在のログインユーザーのIDを登録
   end
 end
