@@ -20,19 +20,19 @@
 
 ## items テーブル
 
-| Column        | Type       | Options                  |
-| ------------- | ---------- | ------------------------ |
-| user          | references | foreign_key:true         |
-| name          | string     | null: false              |
-| content       | text       | null: false              |
-| category_id   | integer    | null: false              |
-| condition_id  | integer    | null: false              |
-| cost_id       | integer    | null: false              |
-| prefecture_id | integer    | null: false              |
-| schedule_id   | integer    | null: false              |
-| price         | integer    | null: false              |
-| seller_id     | integer    | foreign_key: "seller_id" |
-| buyer_id      | integer    |                          |
+| Column        | Type       | Options                |
+| ------------- | ---------- | ---------------------- |
+| user          | references | foreign_key:true       |
+| name          | string     | null: false            |
+| content       | text       | null: false            |
+| category_id   | integer    | null: false            |
+| condition_id  | integer    | null: false            |
+| cost_id       | integer    | null: false            |
+| prefecture_id | integer    | null: false            |
+| schedule_id   | integer    | null: false            |
+| price         | integer    | null: false            |
+| seller_id     | integer    | foreign_key: 'user_id' |
+| buyer_id      | integer    | foreign_key: 'user_id' |
 
 ### Association
 
