@@ -20,22 +20,26 @@
 
 ## items テーブル
 
-| Column        | Type       | Options          |
-| ------------- | ---------- | ---------------- |
-| user          | references | foreign_key:true |
-| name          | string     | null: false      |
-| content       | text       | null: false      |
-| category_id   | integer    | null: false      |
-| condition_id  | integer    | null: false      |
-| cost_id       | integer    | null: false      |
-| prefecture_id | integer    | null: false      |
-| schedule_id   | integer    | null: false      |
-| price         | integer    | null: false      |
+| Column        | Type       | Options                  |
+| ------------- | ---------- | ------------------------ |
+| user          | references | foreign_key:true         |
+| name          | string     | null: false              |
+| content       | text       | null: false              |
+| category_id   | integer    | null: false              |
+| condition_id  | integer    | null: false              |
+| cost_id       | integer    | null: false              |
+| prefecture_id | integer    | null: false              |
+| schedule_id   | integer    | null: false              |
+| price         | integer    | null: false              |
+| seller_id     | integer    | foreign_key: "seller_id" |
+| buyer_id      | integer    |                          |
 
 ### Association
 
 - belongs_to:user
 - has_one:purchase
+- belongs_to :seller, class_name: "User"
+- belongs_to :buyer, class_name: "User"
 
 ## purchases テーブル
 
