@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_item, only: [:show, :edit, :update]
+  before_action :move_to_root, only: [:edit, :update]
 
   def index
     @items = Item.order('created_at DESC')
@@ -24,22 +25,13 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じ
-      render :edit
-    else
-      redirect_to root_path
-    end
   end
 
   def update
-    if @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じ
-      if @item.update(items_params) # 内容の編集ができたら
-        redirect_to item_path
-      else
-        render :edit
-      end
+    if @item.update(items_params) # 内容の編集ができたら
+      redirect_to item_path
     else
-      redirect_to root_path
+      render :edit
     end
   end
 
@@ -52,5 +44,9 @@ class ItemsController < ApplicationController
 
   def find_item
     @item = Item.find(params[:id])
+  end
+
+  def move_to_root
+    redirect_to root_path unless @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じではない場合
   end
 end
