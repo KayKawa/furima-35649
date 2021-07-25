@@ -27,6 +27,6 @@ class ItemsController < ApplicationController
 
   def items_params
     params.require(:item).permit(:name, :content, :category_id, :condition_id, :cost_id, :prefecture_id, :schedule_id, :price,
-                                 :image).merge(user_id: current_user.id, seller_id: current_user.id) # seller_idに現在のログインユーザーのIDを登録
+                                 :image).merge(user_id: current_user.id)
   end
 end
