@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   belongs_to :condition
   belongs_to :cost
   belongs_to :prefecture
-  belongs_to :schedule
+  belongs_to :shippingday
 
   # 空の投稿を保存できないようにする
   with_options presence: true do
@@ -19,7 +19,7 @@ class Item < ApplicationRecord
       validates :condition_id
       validates :cost_id
       validates :prefecture_id
-      validates :schedule_id
+      validates :shipping_day_id
     end
     validates :price
   end
