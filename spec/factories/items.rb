@@ -6,7 +6,7 @@ FactoryBot.define do
     condition_id { rand(2..7) }
     cost_id { rand(2..3) }
     prefecture_id { rand(2..48) }
-    shipping_day_id { rand(2..4) }
+    schedule_id { rand(2..4) }
     price { rand(300..9_999_999) }
 
     association :user
