@@ -7,6 +7,7 @@ class Item < ApplicationRecord
   belongs_to :cost
   belongs_to :prefecture
   belongs_to :schedule
+  has_one :purchase
 
   # 空の投稿を保存できないようにする
   with_options presence: true do
