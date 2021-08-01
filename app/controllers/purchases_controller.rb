@@ -3,6 +3,7 @@ class PurchasesController < ApplicationController
   before_action :find_item, only: [:index, :create]
   before_action :unless_move_root, only: [:create]
   before_action :if_move_root, only: [:index]
+  before_action :sold_out_item, only: [:index]
 
   def index
     @purchase_address = PurchaseAddress.new
@@ -41,5 +42,9 @@ class PurchasesController < ApplicationController
 
   def if_move_root
     redirect_to root_path if @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じ場合
+  end
+
+  def sold_out_item
+    redirect_to root_path if @item.purchase.present?
   end
 end
