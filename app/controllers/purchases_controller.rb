@@ -1,7 +1,8 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_item, only: [:index, :create]
-  before_action :move_to_root, only: [:create]
+  before_action :unless_move_root, only: [:create]
+  before_action :if_move_root, only: [:index]
 
   def index
     @purchase_address = PurchaseAddress.new
@@ -34,7 +35,11 @@ class PurchasesController < ApplicationController
     @item = Item.find(params[:item_id])
   end
 
-  def move_to_root
+  def unless_move_root
     redirect_to root_path unless @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じではない場合
+  end
+
+  def if_move_root
+    redirect_to root_path if @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じ場合
   end
 end
