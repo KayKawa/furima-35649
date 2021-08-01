@@ -12,4 +12,13 @@ class PurchasesAddress
     validates :address
     validates :phone_number, format: { with: /\A\d{11}\z/ } # 11ケタ
   end
+
+  def save
+    # 購入情報を保存し、変数purchaseに代入する
+    purchase = Purchase.create(user_id: user_id, item_id: item_id)
+    # 住所を保存する
+    # donation_idには、変数donationのidと指定する
+    Address.create(postcode: postcode, prefecture_id: prefecture_id, city: city, address: address,
+                   building_name: building_name, phone_number: phone_number, purchase_id: purchase.id)
+  end
 end
