@@ -50,7 +50,7 @@
 - belongs_to:user
 - has_one:shipping_address
 
-## shipping_address テーブル
+## shipping_addresses テーブル
 
 | Column        | Type       | Options          |
 | ------------- | ---------- | ---------------- |
