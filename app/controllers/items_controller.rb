@@ -22,6 +22,7 @@ class ItemsController < ApplicationController
   end
 
   def show
+    @purchase = Purchase.find(params[:id]) # 購入記録のデータを取得
   end
 
   def edit
