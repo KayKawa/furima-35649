@@ -1,5 +1,5 @@
 const pay = () => {
-  Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY); // PAY.JPテスト公開鍵（webpackを用いて環境変数へ）
+  Payjp.setPublicKey(process.env.PAYJP_PUBLIC_KEY); // PAY.JP公開鍵（webpackを用いて環境変数へ）
   const form = document.getElementById("charge-form");
   form.addEventListener("submit", (e) => {
     e.preventDefault();
