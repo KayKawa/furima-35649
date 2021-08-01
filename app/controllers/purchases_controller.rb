@@ -10,7 +10,7 @@ class PurchasesController < ApplicationController
     @item = Item.find(params[:item_id])
     @purchase_address = PurchaseAddress.new(purchase_params)
     if @purchase_address.valid?
-      Payjp.api_key = 'sk_test_b1862899d86c77ed596b2059'  # 秘密鍵
+      Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # 秘密鍵
       Payjp::Charge.create(
         amount: @item.price, # 商品の値段
         card: purchase_params[:token], # カードトークン
