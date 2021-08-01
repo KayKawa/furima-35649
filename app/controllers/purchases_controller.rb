@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_item, only: [:index, :create]
+  before_action :move_to_root, only: [:create]
 
   def index
     @purchase_address = PurchaseAddress.new
@@ -13,7 +14,7 @@ class PurchasesController < ApplicationController
       Payjp::Charge.create(
         amount: @item.price, # 商品の値段
         card: purchase_params[:token], # カードトークン
-        currency: 'jpy'                 # 通貨の種類（日本円）
+        currency: 'jpy' # 通貨の種類（日本円）
       )
       @purchase_address.save
       redirect_to root_path
@@ -31,5 +32,9 @@ class PurchasesController < ApplicationController
 
   def find_item
     @item = Item.find(params[:id])
+  end
+
+  def move_to_root
+    redirect_to root_path unless @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じではない場合
   end
 end
