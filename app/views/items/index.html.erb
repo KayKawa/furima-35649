@@ -133,7 +133,7 @@
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
 
-          <% if item.purchase.present? %><%# 商品が売れている場合は、sold outを表示 %>
+          <% if @purchase.include?(item.id) %><%# 購入記録のitem_idカラムに該当の商品のidが含まれていたら売約済み %>
           <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>

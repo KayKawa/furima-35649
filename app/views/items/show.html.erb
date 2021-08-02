@@ -8,10 +8,10 @@
     </h2>
     <div class="item-img-content">
       <%= image_tag @item.image ,class:"item-box-img" %>
-      <% if @purchase.item_id == @item.id %><%# 商品が売れている場合は、sold outを表示 %>
-      <div class="sold-out">
-        <span>Sold Out!!</span>
-      </div>
+      <% if @purchase.include?(@item.id) %><%# 購入記録のitem_idカラムに該当の商品のidが含まれていたら売約済み %>
+        <div class="sold-out">
+          <span>Sold Out!!</span>
+        </div>
       <% end %>
     </div>
     <div class="item-price-box">
@@ -23,19 +23,20 @@
       </span>
     </div>
 
-    <%# ログインしているユーザーと出品しているユーザーの表示分岐 %>
-    <% if user_signed_in? %><%# ログインしているか？ %>
-      <% if current_user.id == @item.user_id %><%# ログインしている出品者のみ表示 %>
-        <% unless @purchase.item_id == @item.id %> <%# 商品の在庫がある場合 %>
+    <% if user_signed_in? %><%# ログインしている %>
+
+      <% if current_user.id == @item.user_id %><%# 出品者のみ表示 %>
+        <% unless @purchase.include?(@item.id) %> <%# 購入記録のitem_idカラムに該当の商品のidが含まれていたら売約済み %>
           <%= link_to "商品の編集", edit_item_path, method: :get, class: "item-red-btn" %>
           <p class="or-text">or</p>
           <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
         <% end %>
-      <% else %><%# ログインしている出品者以外のユーザーのみ表示 %>
-        <% unless @purchase.item_id == @item.id %><%# 商品の在庫がある場合 %>
+      <% else %><%# 出品者以外のユーザーのみ表示 %>
+        <% unless @purchase.include?(@item.id) %><%# 購入記録のitem_idカラムに該当の商品のidが含まれていたら売約済み %>
           <%= link_to "購入画面に進む", item_purchases_path(@item.id) ,class:"item-red-btn"%>
         <% end %>
       <% end %>
+
     <% end %>
 
     <div class="item-explain-box">

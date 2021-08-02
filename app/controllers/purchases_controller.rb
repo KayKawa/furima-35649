@@ -2,7 +2,7 @@ class PurchasesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_item, only: [:index, :create]
   before_action :move_to_root, only: [:index, :create]
-  before_action :sold_out_item, only: [:index]
+  before_action :sold_out_item, only: [:index, :create]
 
   def index
     @purchase_address = PurchaseAddress.new
@@ -36,10 +36,11 @@ class PurchasesController < ApplicationController
   end
 
   def move_to_root
-    redirect_to root_path if @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じ場合
+    redirect_to root_path if @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じ場合、ルートへリダイレクト
   end
 
   def sold_out_item
-    redirect_to root_path if @item.purchase.present? # 商品が売却済の場合
+    @purchase = Purchase.pluck(:item_id) # Purchaseモデルからitem_idのカラムを取得し配列で返す
+    redirect_to root_path if @purchase.include?(@item.id) # 購入記録のitem_idカラム配列に該当商品のidが含まれてる＝売約済
   end
 end
