@@ -14,10 +14,9 @@ class PurchaseAddress
   end
 
   def save
-    # 購入情報を保存し、変数purchaseに代入する
+    # 購入情報を保存
     purchase = Purchase.create(user_id: user_id, item_id: item_id)
-    # 住所を保存する
-    # purchase_idには、変数purchaseのidと指定する
+    # 住所を保存
     ShippingAddress.create(postcode: postcode, prefecture_id: prefecture_id, city: city, address: address,
                            building_name: building_name, phone_number: phone_number, purchase_id: purchase.id)
   end
