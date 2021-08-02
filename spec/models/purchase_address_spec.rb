@@ -29,6 +29,10 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.phone_number = '1234567890'
         expect(@purchase_address).to be_valid
       end
+      it '建物名の記入がなくても配送先の登録ができて、商品の購入ができる' do
+        @purchase_address.building_name = ''
+        expect(@purchase_address).to be_valid
+      end
     end
     context '商品の購入ができない時' do
       it 'クレジットカード情報は必須であり、正しいクレジットカードの情報で無いときは、購入できない' do
@@ -95,6 +99,11 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.item_id = nil
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
+      end
+      it '電話番号が12桁より多いと配送先の登録ができず、購入できない' do
+        @purchase_address.phone_number = '123456789012345'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include('Phone number is too short')
       end
     end
   end
