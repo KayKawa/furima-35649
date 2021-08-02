@@ -5,13 +5,14 @@ class PurchaseAddress
 
   # 空の投稿を保存できないようにする
   with_options presence: true do
-    validates :postcode, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' } # ３ケタの整数 + ハイフン + ４ケタの整数
+    validates :token
+    validates :postcode, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Enter it as follows (e.g. 123-4567)' } # ３ケタの整数 + ハイフン + ４ケタの整数
     validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :city
     validates :address
-    validates :phone_number, format: { with: /\A\d{11}\z/ } # 11ケタ
-    validates :token
+    validates :phone_number, format: { with: /\A\d{11}\z/, message: 'is too short' } # 11ケタ以内
   end
+  validates :phone_number, format: { with: /\A[0-9]+\z/, message: 'is invalid.Input only half-width number' } # 半角数字のみ
 
   def save
     # 購入情報を保存
