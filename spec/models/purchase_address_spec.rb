@@ -9,19 +9,23 @@ RSpec.describe PurchaseAddress, type: :model do
 
   describe '商品購入' do
     context '商品の購入ができる時' do
-      it '必要な情報を適切に入力すると、商品の購入ができる' do
+      it '必要な情報を適切に入力すると配送先の登録ができて、商品の購入ができる' do
         expect(@purchase_address).to be_valid
       end
-      it '郵便番号にハイフンを正しく入力すると、商品の購入ができる' do
+      it '郵便番号にハイフンを正しく入力すると配送先の登録ができて、商品の購入ができる' do
         @purchase_address.token = '999-9999'
         expect(@purchase_address).to be_valid
       end
-      it '都道府県に"--"以外を選択すると、商品の購入ができる' do
+      it '都道府県に"--"以外を選択すると配送先の登録ができて、商品の購入ができる' do
         @purchase_address.prefecture_id = '47'
         expect(@purchase_address).to be_valid
       end
-      it '電話番号を半角数字で正しく入力すると、商品の購入ができる' do
+      it '電話番号を半角数字で正しく入力すると配送先の登録ができて、商品の購入ができる' do
         @purchase_address.phone_number = '09011112222'
+        expect(@purchase_address).to be_valid
+      end
+      it '電話番号を半角数字10桁で入力すると配送先の登録ができて、商品の購入ができる' do
+        @purchase_address.phone_number = '1234567890'
         expect(@purchase_address).to be_valid
       end
     end
