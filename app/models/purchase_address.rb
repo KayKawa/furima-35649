@@ -1,7 +1,6 @@
 class PurchaseAddress
   include ActiveModel::Model
-  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :address, :building_name, :phone_number,
-                :purchase_id, :token
+  attr_accessor :user_id, :item_id, :postcode, :prefecture_id, :city, :address, :building_name, :phone_number, :token
 
   # 空の投稿を保存できないようにする
   with_options presence: true do
