@@ -23,20 +23,14 @@
       </span>
     </div>
 
-    <% if user_signed_in? %><%# ログインしている %>
-
-      <% if current_user.id == @item.user_id %><%# 出品者のみ表示 %>
-        <% unless @purchase.include?(@item.id) %> <%# 購入記録のitem_idカラムに該当の商品のidが含まれていたら売約済み %>
+    <% if user_signed_in? && !@purchase.include?(@item.id) %> <%# ログインしていれば && 商品は売れていなければ %>
+      <% if current_user.id == @item.user_id %> <%# 現在ログインしているユーザーが商品の出品者であれば %>
           <%= link_to "商品の編集", edit_item_path, method: :get, class: "item-red-btn" %>
           <p class="or-text">or</p>
           <%= link_to "削除", item_path(@item.id), method: :delete, class:"item-destroy" %>
-        <% end %>
-      <% else %><%# 出品者以外のユーザーのみ表示 %>
-        <% unless @purchase.include?(@item.id) %><%# 購入記録のitem_idカラムに該当の商品のidが含まれていたら売約済み %>
+      <% else %>
           <%= link_to "購入画面に進む", item_purchases_path(@item.id) ,class:"item-red-btn"%>
-        <% end %>
       <% end %>
-
     <% end %>
 
     <div class="item-explain-box">
