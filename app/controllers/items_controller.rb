@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :edit, :update, :destroy]
   before_action :find_purchase, only: [:show]
   before_action :move_to_root, only: [:edit, :update]
+  before_action :sold_out_item, only: [:edit, :destroy]
 
   def index
     @items = Item.order('created_at DESC')
@@ -62,5 +63,9 @@ class ItemsController < ApplicationController
 
   def move_to_root
     redirect_to root_path unless @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じではない場合
+  end
+
+  def sold_out_item
+    redirect_to root_path if @item.purchase.present? # 商品が売却済の場合
   end
 end
