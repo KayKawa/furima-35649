@@ -10,6 +10,8 @@ class PurchaseAddress
     validates :city
     validates :address
     validates :phone_number, length: { in: 10..11, message: 'is too short' } # 11ケタ以内
+    validates :user_id
+    validates :item_id
   end
   validates :phone_number, format: { with: /\A[0-9]+\z/, message: 'is invalid.Input only half-width number' } # 半角数字のみ
 
