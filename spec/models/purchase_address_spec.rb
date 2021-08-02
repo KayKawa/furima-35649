@@ -18,7 +18,7 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address).to be_valid
       end
       it '都道府県に"--"以外を選択すると配送先の登録ができて、商品の購入ができる' do
-        @purchase_address.prefecture_id = '47'
+        @purchase_address.prefecture_id = 47
         expect(@purchase_address).to be_valid
       end
       it '電話番号を半角数字で正しく入力すると配送先の登録ができて、商品の購入ができる' do
