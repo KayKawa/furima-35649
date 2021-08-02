@@ -71,7 +71,7 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include("Postcode can't be blank")
       end
       it '都道府県が"--"だと配送先の登録ができず、購入できない' do
-        @purchase_address.prefecture_id = '1'
+        @purchase_address.prefecture_id = 1
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
       end
