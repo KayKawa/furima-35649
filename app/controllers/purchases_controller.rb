@@ -11,14 +11,7 @@ class PurchasesController < ApplicationController
   def create
     @purchase_address = PurchaseAddress.new(purchase_params)
     if @purchase_address.valid?
-      Payjp.api_key = ENV['PAYJP_SECRET_KEY']  # 秘密鍵の環境変数
-      Payjp::Charge.create(
-        amount: @item.price, # 商品の値段
-        card: purchase_params[:token], # カードトークン
-        currency: 'jpy' # 通貨の種類（日本円）
-      )
-      @purchase_address.save
-      redirect_to root_path
+      payjp_create
     else
       render action: :index
     end
@@ -42,5 +35,16 @@ class PurchasesController < ApplicationController
   def sold_out_item
     @purchase = Purchase.pluck(:item_id) # Purchaseモデルからitem_idのカラムを取得し配列で返す
     redirect_to root_path if @purchase.include?(@item.id) # 購入記録のitem_idカラム配列に該当商品のidが含まれてる＝売約済
+  end
+
+  def payjp_create
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] # 秘密鍵の環境変数
+    Payjp::Charge.create(
+      amount: @item.price, # 商品の値段
+      card: purchase_params[:token], # カードトークン
+      currency: 'jpy' # 通貨の種類（日本円）
+    )
+    @purchase_address.save
+    redirect_to root_path
   end
 end
