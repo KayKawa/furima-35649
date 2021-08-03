@@ -1,7 +1,9 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_item, only: [:show, :edit, :update, :destroy]
+  before_action :find_purchase, only: [:index, :show, :edit, :destroy]
   before_action :move_to_root, only: [:edit, :update]
+  before_action :sold_out_item, only: [:edit, :destroy]
 
   def index
     @items = Item.order('created_at DESC')
@@ -55,7 +57,15 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def find_purchase
+    @purchase = Purchase.pluck(:item_id) # Purchaseモデルからitem_idのカラムを取得し配列で返す
+  end
+
   def move_to_root
     redirect_to root_path unless @item.user_id == current_user.id # 出品ユーザーと現在のユーザーが同じではない場合
+  end
+
+  def sold_out_item
+    redirect_to root_path if @purchase.include?(@item.id) # 購入記録のitem_idカラム配列に該当商品のidが含まれてる＝売約済
   end
 end
