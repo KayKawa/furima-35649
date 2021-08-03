@@ -12,6 +12,8 @@ class PurchasesController < ApplicationController
     @purchase_address = PurchaseAddress.new(purchase_params)
     if @purchase_address.valid?
       payjp_create
+      @purchase_address.save
+      redirect_to root_path
     else
       render action: :index
     end
@@ -44,7 +46,5 @@ class PurchasesController < ApplicationController
       card: purchase_params[:token], # カードトークン
       currency: 'jpy' # 通貨の種類（日本円）
     )
-    @purchase_address.save
-    redirect_to root_path
   end
 end
