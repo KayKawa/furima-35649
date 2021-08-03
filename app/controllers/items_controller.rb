@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_item, only: [:show, :edit, :update, :destroy]
-  before_action :find_purchase, only: [:index, :show]
+  before_action :find_purchase, only: [:index, :show, :edit, :destroy]
   before_action :move_to_root, only: [:edit, :update]
   before_action :sold_out_item, only: [:edit, :destroy]
 
@@ -66,7 +66,6 @@ class ItemsController < ApplicationController
   end
 
   def sold_out_item
-    @purchase = Purchase.pluck(:item_id) # Purchaseモデルからitem_idのカラムを取得し配列で返す
     redirect_to root_path if @purchase.include?(@item.id) # 購入記録のitem_idカラム配列に該当商品のidが含まれてる＝売約済
   end
 end
